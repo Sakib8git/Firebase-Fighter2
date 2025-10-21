@@ -1,9 +1,9 @@
-import React, { use } from "react";
+// import React, { use } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../Provider/AuthContext";
 
 const Profile = () => {
-  const {user}= use(AuthContext)
+  // const {user}= use(AuthContext)
   const handleNotify = () => {
     toast.success("🎉 You’ll be notified when the profile is ready!", {
       position: "top-center",

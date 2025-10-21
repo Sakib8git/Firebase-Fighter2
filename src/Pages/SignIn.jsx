@@ -1,6 +1,6 @@
 import React, { use, useRef, useState } from "react";
 import { FaEye } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 import { IoEyeOff } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
@@ -17,9 +17,15 @@ const SignIn = () => {
     gitSignin,
     sendRestPass,
   } = use(AuthContext);
-
+  const location = useLocation();
+  const desti = location.state || "/";
+  console.log(location);
+  const navigation = useNavigate();
+  if (user) {
+    navigation("/");
+    return
+  }
   const emailRef = useRef(null);
-  const navigation =useNavigate()
   // ---------------------------------------------
   // sign in with Email----------------
   const handleSignin = (e) => {
@@ -31,12 +37,13 @@ const SignIn = () => {
       .then((result) => {
         if (!result.user?.emailVerified) {
           toast.error("Please veryfy your Mail");
+          signOutFnc();
           return;
         }
 
         toast("Successfully Signed In");
         setUser(result.user);
-        navigation('/')
+        navigation(desti);
       })
       .catch((error) => {
         console.log(error);
@@ -89,7 +96,7 @@ const SignIn = () => {
         console.log(result);
         toast("Successfully Signed In");
         setUser(result.user);
-        navigation('/')
+        navigation(desti);
       })
       .catch((error) => {
         console.log(error);
@@ -102,7 +109,7 @@ const SignIn = () => {
         console.log(result);
         toast("Successfully Signed In");
         setUser(result.user);
-        navigation('/')
+        navigation(desti);
       })
       .catch((error) => {
         console.log(error);

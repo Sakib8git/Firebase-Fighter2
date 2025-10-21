@@ -5,10 +5,11 @@ import MyLink from "./MyLink";
 import { AuthContext } from "../Provider/AuthContext";
 import { use } from "react";
 import { toast } from "react-toastify";
+import { PacmanLoader } from "react-spinners";
 // import MyLink from "./MyLink";
 
 const Navbar = () => {
-  const { user, setUser, signOutFnc, loading, setLoading } = use(AuthContext);
+  const { user, setUser, signOutFnc, loading } = use(AuthContext);
 
   const handleSignout = () => {
     signOutFnc()
@@ -20,7 +21,7 @@ const Navbar = () => {
         toast.error(e.message);
       });
   };
-console.log(loading);
+  console.log(loading);
   return (
     <div className="bg-slate-100f py-2 border-b border-b-slate-300 ">
       <div className="container mx-auto flex items-center justify-between">
@@ -35,17 +36,21 @@ console.log(loading);
           <li>
             <MyLink to={"/about"}>About US</MyLink>
           </li>
-          {
-            user?<li>
+          {/* {user ? (
+            <li>
+              <MyLink to={"/profile"}>Profile</MyLink>
+            </li>
+          ) : (
+            ""
+          )} */}
+          <li>
             <MyLink to={"/profile"}>Profile</MyLink>
-          </li>:""
-          }
-          {/* <li>
-            <MyLink to={"/profile"}>Profile</MyLink>
-          </li> */}
+          </li>
         </ul>
 
-        {loading?"Loading------": user ? (
+        {loading ? (
+          <PacmanLoader color="#00ff21" />
+        ) : user ? (
           <div className="text-center space-y-3">
             {/* <img 
               src={
@@ -79,11 +84,11 @@ console.log(loading);
                 { positionAnchor: "--anchor-1" } /* as React.CSSProperties */
               }
             >
-               <h2 className="text-xl font-semibold">{user?.displayName}</h2>
-                <p className="text-white/80">{user?.email}</p>
-             <button onClick={handleSignout} className="my-btn ">
-              Sign Out
-            </button>
+              <h2 className="text-xl font-semibold">{user?.displayName}</h2>
+              <p className="text-white/80">{user?.email}</p>
+              <button onClick={handleSignout} className="my-btn ">
+                Sign Out
+              </button>
             </ul>
 
             {/* <button onClick={handleSignout} className="my-btn">
